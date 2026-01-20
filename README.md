@@ -10,6 +10,10 @@
    ```
    sudo chmod +x run-docker.sh
    ```
+   * or you can run it like below
+     ```
+     bash run-docker.sh
+     ```
 3. execute run-docker.sh file
    ```
    ./run-docker.sh
