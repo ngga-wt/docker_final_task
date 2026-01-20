@@ -6,9 +6,8 @@ containerName="AlpCon"
 # Build docker image.
 docker build -t alpine_img .
 
-alpContainer="$(docker ps -a | sed -rn "s/.*($containerName)$/\1/p")"
-
 # Checks if AlpCon is running
+alpContainer="$(docker ps -a | sed -rn "s/.*($containerName)$/\1/p")"
 if [ -z "$alpContainer" ]; then
 
   # Run image to create container named AlpCon.
@@ -16,9 +15,9 @@ if [ -z "$alpContainer" ]; then
 else echo "Container $containerName is allready running" && exit 1; fi
 
 # Waits for 10 seconds.
-echo 'Sleeping 10 second...'
+echo 'Sleeping 10 seconds...'
 sleep 10
-echo 'Sleeping 10 second...finished.'
+echo 'Sleeping 10 seconds...finished.'
 
 # get container proccess
 alpProccess="$(docker exec AlpCon ps aux 2>/dev/null)"
