@@ -12,8 +12,8 @@ alpContainer="$(docker ps -a | sed -rn "s/.*($containerName)$/\1/p")"
 if [ -z "$alpContainer" ]; then
 
   # Run image to create container named AlpCon.
-  docker run -d --rm --name AlpCon -e maxCountEnv="$maxCountEnv" -v "$PWD/public":/app/public alpine_img
-else echo "Container 'AlpCon' is allready running" && exit 1; fi
+  docker run -d --rm --name $containerName -e maxCountEnv="$maxCountEnv" -v "$PWD/public":/app/public alpine_img
+else echo "Container $containerName is allready running" && exit 1; fi
 
 # Waits for 10 seconds.
 echo 'Sleeping 10 second...'
@@ -29,7 +29,7 @@ pid="$(echo "$alpProccess" | grep 'entrypoint.py' | sed -rn 's/^\s*([2-9]).*/\1/
 if [ -n "$pid" ]; then
 
   # kill it and print test failed
-  docker exec AlpCon kill -9 "$pid" && echo -e "\nTest failed, running python file with proccess id: $pid was killed!"
+  docker exec "$containerName" kill -9 "$pid" && echo -e "\nTest failed, running python file with proccess id: $pid was killed!"
 else echo "python file is not running!"; fi
 
 # stop container if still running
