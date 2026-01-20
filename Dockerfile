@@ -1,6 +1,8 @@
 # Use the official Alpine Linux image as the base image
 FROM alpine:latest
 
+ENV maxCountEnv=1
+
 # Install git and curl (or wget) to enable downloading from GitHub
 RUN apk update && apk --no-cache add git curl python3
 
@@ -15,4 +17,4 @@ COPY . /app
 RUN chmod +x ./entrypoint.py
 
 # Define the command to run when the container starts
-CMD ["python3", "entrypoint.py"]
+CMD ["/bin/sh", "-c", "python3 entrypoint.py && tail -f /dev/null"]
